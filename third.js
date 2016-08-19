@@ -5,8 +5,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 //var gpio = require('rpi-gpio');
-//var device = require('./Core/device');
-var device = require('./core/deviceDummy');
+var device = require('./Core/device');
+//var device = require('./core/deviceDummy');
 
 var app = express();
 
@@ -24,40 +24,46 @@ app.use(function (req,resp,next){
 	next();
 });
 var pin = 7;
-app.get("/", function(req,res){
-//	gpio.setup(7,gpio.DIR_OUT , on);
-var devices = getDevices();
-//req.session.devices = devices;
-//console.log(devices.devices[0].name);
-device.setup(7);
-	res.render("index");
-});
-app.get("/on",function (req,res){
 
-	//gpio.setup(7,gpio.DIR_OUT , on);
+app.get("/", function(req,res){
+	var devices = getDevices();
+	//req.session.devices = devices;
+	//console.log(devices.devices[0].name);
+	device.setup(pin,'out');
+
+		res.render("index");
+	});
+app.get("/on",function (req,res){
 on();
 	res.render("on");
 });
 
 app.get("/off",function (req,res){
-	//gpio.setup(7,gpio.DIR_OUT , off);
 off();
 	res.render("off");
 });
 
 app.get("/stop",function (req,res){
-clean();
+	clean();
 	res.render("index");
+});
+
+app.get("/read",function(req,res){
+console.log(pin);
+//	device.setup(pin,'in');
+	var r= device.read(pin);
+console.log(r + '');
+res.render("read",{state:r});
 });
 
 function on()
 {
-	device.write(pin,1);
+	device.write(pin,'1');
 }
 
 function off()
 {
-	device.write(pin,0)
+	device.write(pin,'0')
 }
 function getDevices(){
 	var contents = fs.readFileSync('devices.json','utf8');
@@ -69,7 +75,8 @@ return obj;
 
 }
 function clean(){
-gpio.destroy(function(){console.log("closed now..");});
+device.clean();
+//gpio.destroy(function(){console.log("closed now..");});
 
 }
 function write(data){

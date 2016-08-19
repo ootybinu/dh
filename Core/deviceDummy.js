@@ -21,9 +21,6 @@ var value = 1;
 // 	return value;
 // });
 };
-this.setup = function (pin)
-{
-	console.log("Setting up for pin" + pin );
-}
+
 }
 module.exports = new deviceDummy;
