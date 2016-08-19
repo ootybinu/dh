@@ -81,21 +81,6 @@ device.clean();
 }
 function write(data){
 
-//gpio.setup(7,gpio.DIR_OUT , on);
-
-/*
-gpio.setup(7,gpio.DIR_OUT,function (){
-	gpio.write(7,data,function (err){
-		if(err) throw err;
-		console.log("written" + data);})
-});
-*/
 }
-
-
-// app.use(function (req,res){
-// 	res.writeHead(200,{"Content-Type":"text/plain"});
-// 	res.end("testing...");
-// });
 
 http.createServer(app).listen(2020);
