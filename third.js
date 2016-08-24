@@ -5,8 +5,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 //var gpio = require('rpi-gpio');
-var device = require('./Core/device');
-//var device = require('./core/deviceDummy');
+//var device = require('./Core/device');
+var device = require('./core/deviceDummy');
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.get("/", function(req,res){
 		res.render("index");
 	});
 app.get("/on",function (req,res){
-on();
+	on();
 	res.render("on");
 });
 
@@ -51,9 +51,14 @@ app.get("/stop",function (req,res){
 app.get("/read",function(req,res){
 console.log(pin);
 //	device.setup(pin,'in');
-	var r= device.read(pin);
-console.log(r + '');
-res.render("read",{state:r});
+		var r= device.read(pin);
+	console.log(r + '');
+	res.render("read",{state:r});
+});
+
+app.get("/test",function(req,res){
+
+	res.render("list");
 });
 
 function on()
