@@ -1,5 +1,3 @@
-//var gpio = require('rpi-gpio');
-
 function deviceDummy()
 {
 
