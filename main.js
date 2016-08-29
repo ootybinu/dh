@@ -9,12 +9,16 @@ var datastore = require ('./Core/datastore');
 var device = require('./core/deviceDummy');
 
 var app = express();
-
+var session = require('express-session');
+var cp = require('cookie-parser');
 app.set("views",path.resolve(__dirname,"views"));
 app.set("view engine","ejs");
 
 app.use(logger("dev"));
+//app.use(cp);
+app.use(session({secret:'ardra'}));
 
+var sess;
 //app.use(express.session());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('public'));
@@ -28,8 +32,25 @@ app.use(function (req,resp,next){
 
 //routes
 app.get("/", function(req,res){
+		sess = req.session;
+		if (sess.user)
+		{
+			res.redirect('/list');
+		}else
+		{
+		res.redirect('/login');
+
+		}
+
 	}); // root
 
+app.get("/login",function (req,res) {
+	res.render("login");
+})
+
+app.post("/login", function (req,res) {
+
+})
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();
