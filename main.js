@@ -31,11 +31,21 @@ app.get("/", function(req,res){
 	}); // root
 
 app.get("/dbinit",function(req,res){
-		datastore.create();
-	datastore.init();
-
+	//	datastore.create();
+	//datastore.init();
+	//datastore.delete();
+	datastore.fetch().then (function(result){
+	console.log(result);
 	res.writeHead(200,{"Content-Type":"text/plain"});
-	res.end("testing...");
+	res.end("<h1> ans is " +result[0].name + "</h1>");
+
+
+	}).catch(function(err){
+console.log("error occured");
+	res.writeHead(200,{"Content-Type":"text/plain"});
+	res.end("error occured");
+
+	});
 
 	 }); //dbinit
 
