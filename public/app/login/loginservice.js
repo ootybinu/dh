@@ -10,6 +10,7 @@ this.login = function ( username,pwd){
 	return $http.post(url,{username:username,password:pwd});
 
 	};
+	
 	this.success= function(){
 		$http.get('/');
 	};

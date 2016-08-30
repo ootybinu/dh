@@ -1,11 +1,34 @@
-<div ng-app='app'>
-	<div ng-controller='logincontroller'>
-		<input type ='text' name='username' ng-model='userName'/>
-		<input type='password' name ='pwd' ng-model='password'/>
-		<input type='button' name='loginbtn' ng-click='login()'/>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+<div style="text-align:center">
+	<div ng-app='app'>
+		<div ng-controller='logincontroller'>
+			<div class='col-xs-12 col-ls-12'>
+				<div class='loginbox'>
+						<div>
+							<label> name: </label>
+							<input type ='text' name='username' ng-model='userName'/>
+						</div>
+						<div>
+							<label>Password:</label>
+							<input type='password' name ='pwd' ng-model='password'/>
+						</div>
+						<div style="margin-top:20px;text-align:right">
+							<input type='button' class='btn btn-default' name='loginbtn' value ='Logon'ng-click='login()' 
+							ng-disabled='UserName == "" || password ==""'/>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
-</div>
 <%include script%>
 <script  src="app/login/loginservice.js" ></script>
-
 <script  src="app/login/logincontroller.js" ></script>
+</div>
+</body>
+</html>

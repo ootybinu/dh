@@ -5,5 +5,16 @@
 	width: 80%;
 	padding: 10px;
 	margin:10px;
-
+}
+.loginbox 
+{
+width:80%;
+border: 1px solid gray;
+border-radius: 5px;
+margin:100px;
+padding: 50px;
+}
+.loginbox label 
+{
+	width:40%;
 }
