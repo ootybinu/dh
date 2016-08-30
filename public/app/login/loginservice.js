@@ -12,7 +12,7 @@ this.login = function ( username,pwd){
 	};
 	
 	this.success= function(){
-		$http.get('/');
+		return $http.get('/');
 	};
 
 }

@@ -19,7 +19,12 @@ function loginController($scope,loginservice){
 		(function (data) {
 			if (data.flag=='success')
 			{
-			loginservice.success();
+				window.location = "/";
+			// loginservice.success().success(function(data1){
+			// 		console.log('loading landing page');
+			// }).error(function(err){
+			// 	console.log('error occured...');
+			// });
 		}else 
 		{
 			console.log('authentication failure');
