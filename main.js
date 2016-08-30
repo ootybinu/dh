@@ -36,7 +36,7 @@ app.get("/", function(req,res){
 		sess = req.session;
 		if (sess.user)
 		{
-			res.redirect('/list');
+			res.redirect('/home');
 		}else
 		{
 		res.redirect('/login');
@@ -47,13 +47,27 @@ app.get("/", function(req,res){
 
 app.get("/login",function (req,res) {
 	res.render("login");
-})
+}); //login get
 
 app.post("/login", function (req,res) {
-console.log(req.body);
-console.log(req);
-console.log(req.body.userName);
-})
+	var user= req.body.username;
+	var pwd = req.body.password;
+	var result={};
+	if (user =='admin')
+	{
+		req.session.user = 'admin';
+		result.flag='success';}
+		else{
+			result.flag='failure';
+		}
+	res.json(result);	
+
+}); //login post 
+
+app.get("/home", function (req,res) {
+	res.render("home");
+}); //home get
+
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();

@@ -17,7 +17,14 @@ function loginController($scope,loginservice){
 	  function logIn(){
 		loginservice.login($scope.userName,$scope.password).success
 		(function (data) {
+			if (data.flag=='success')
+			{
 			loginservice.success();
+		}else 
+		{
+			console.log('authentication failure');
+		}
+
 		}).error(
 		function (errarg) {
 			console.log('error occured '+ errarg);
