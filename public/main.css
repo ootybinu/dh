@@ -11,10 +11,16 @@
 width:80%;
 border: 1px solid gray;
 border-radius: 5px;
-margin:100px;
+margin:10px;
 padding: 50px;
 }
 .loginbox label 
 {
 	width:40%;
+	text-align: right;
+}
+.loginbox > div 
+{
+ width: 100%;
+ text-align: left;
 }
