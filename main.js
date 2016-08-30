@@ -20,7 +20,8 @@ app.use(session({secret:'ardra'}));
 
 var sess;
 //app.use(express.session());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json({extended:true}));
 app.use(express.static('public'));
 
 //middleware logging
@@ -49,7 +50,9 @@ app.get("/login",function (req,res) {
 })
 
 app.post("/login", function (req,res) {
-
+console.log(req.body);
+console.log(req);
+console.log(req.body.userName);
 })
 app.get("/dbinit",function(req,res){
 	//	datastore.create();

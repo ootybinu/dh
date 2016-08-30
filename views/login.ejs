@@ -1,5 +1,11 @@
-<div>
-<input type ='text' name='username'/>
-<input type='password' name ='pwd'/>
-<input type='submit'/>
+<div ng-app='app'>
+	<div ng-controller='logincontroller'>
+		<input type ='text' name='username' ng-model='userName'/>
+		<input type='password' name ='pwd' ng-model='password'/>
+		<input type='button' name='loginbtn' ng-click='login()'/>
+	</div>
 </div>
+<%include script%>
+<script  src="app/login/loginservice.js" ></script>
+
+<script  src="app/login/logincontroller.js" ></script>
