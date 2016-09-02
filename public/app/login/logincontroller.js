@@ -7,7 +7,7 @@ function loginController($scope,loginservice){
 	$scope.login = logIn;
 	$scope.userName='';
 	$scope.password='';
-
+$scope.error='';
 	activate();
 	function activate()
 	{
@@ -28,6 +28,7 @@ function loginController($scope,loginservice){
 		}else 
 		{
 			console.log('authentication failure');
+			$scope.error='userName not found/wrong password';
 		}
 
 		}).error(

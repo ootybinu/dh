@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var datastore = require ('./Core/datastore');
 //var device = require('./Core/device');
-var device = require('./core/deviceDummy');
-
+var device = require('./Core/deviceDummy');
+//var logcontroller = require('./controllers/logcontroller')
 var app = express();
 var session = require('express-session');
 var cp = require('cookie-parser');
@@ -37,7 +37,8 @@ app.get("/", function(req,res){
 		if (sess.user)
 		{
 			res.redirect('/home');
-		}else
+		}
+		else
 		{
 		res.redirect('/login');
 
@@ -53,21 +54,38 @@ app.post("/login", function (req,res) {
 	var user= req.body.username;
 	var pwd = req.body.password;
 	var result={};
-	if (user =='admin')
-	{
-		req.session.user = 'admin';
-		result.flag='success';}
-		else{
-			result.flag='failure';
+	datastore.fetchUser(user,pwd).then(
+		function(data){
+			console.log(data);
+			if (data== null || data==undefined || data.length ==0 )
+			{
+				result.flag='failure';
+				res.json(result);
+			}else{
+				req.session.user = 'admin';
+				result.flag='success';
+				result.data = data;
+				res.json(result);
 		}
-	res.json(result);	
-
+		},function(err){
+			result.flag='failure';
+			res.json(result);
+		}); 
 }); //login post 
 
 app.get("/home", function (req,res) {
 	res.render("home");
 }); //home get
 
+app.post('/home/getdevices',function(req,res){
+	var user = req.body.username;
+	datastore.fetchDevices(user).then
+	(function(data){
+		res.json(data);
+	},function (err){
+		res.json(err);
+	});
+});
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();

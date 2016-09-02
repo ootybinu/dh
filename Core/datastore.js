@@ -27,6 +27,39 @@ this.init= function (){
 //	db.close();
 };
 
+
+this.fetchUser = function (username, pwd ){
+	return new Promise(function (resolve,reject){
+	var qry='select * from users where name ="'+ username +'" and password ="' + pwd + '"';
+	db.all(qry,function(err,row){
+		if(err){
+			console.log('error while retriving user' + err); 
+			reject(err);
+		}
+		resolve(row);
+
+		});
+	});
+
+};
+
+this.fetchDevices = function (username){
+	return new Promise(function (resolve,reject){
+	var qry='select * from devices where username ="'+ username +'"';
+	db.all(qry,function(err,row){
+		if(err){
+			console.log('error while retriving devices' + err); 
+			reject(err);
+		}
+		resolve(row);
+
+		});
+	});
+
+};
+
+
+
 this.fetch= function(){
 	return  new Promise(function(resolve,reject){
   
@@ -39,27 +72,10 @@ get(function(err,row){
 	console.log("first data "+ row[0].name);
 
 	resolve(row);
-});
+	});
 
 
 	});
-	// var result;
-	// db.serialize(function(){
-	// 	console.log("fetching from devices");
-	// 	db.each('select * from devices',function (err,row) {
-	// 		if (err){console.log("error is " + err);}
-	// 		console.log(row);
-	// 		var device = row;
-	// 	result.push(device.name);
-	// 	console.log("added .." + device.name);
-	// });
-
-	// });
-
-//	db.close();+
-
-//console.log("return value is  " + result);
-//	return result;
 };	
 
 function get(cb){

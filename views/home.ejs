@@ -1,7 +1,18 @@
 <%include header%>
 
-<h3>Welcome</h3>
+Dashboard 
+<div style="display:flexbox">
+<div ng-controller="homecontroller">
+<div ng-repeat ="device in devicedata">
+{{device.devicename}}
+<img src={{device.img}}
+</div>
 
+</div>
+
+</div>
 
 <%include script%>
+<script  src="app/home/app.homeservice.js" ></script>
+<script  src="app/home/app.homecontroller.js" ></script>
 <%include footer%>
