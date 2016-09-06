@@ -1,7 +1,7 @@
 (function(){	
 	'use strict';
 
-	angular.module('app').controller('	',homeController);
+	angular.module('app').controller('homecontroller',homeController);
 	homeController.$inject=['$scope','homeservice'];
 	function homeController($scope,homeservice)
 	{
