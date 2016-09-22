@@ -7,7 +7,7 @@ function loginController($scope,loginservice){
 	$scope.login = logIn;
 	$scope.userName='';
 	$scope.password='';
-$scope.error='';
+	$scope.error='';
 	activate();
 	function activate()
 	{

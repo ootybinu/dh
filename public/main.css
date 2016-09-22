@@ -30,3 +30,7 @@ border-bottom-right-radius: 10px;
 border:1px solid gray;
 padding: 10px;
 }
+.error 
+{
+	color:red;
+}

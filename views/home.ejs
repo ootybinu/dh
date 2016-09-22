@@ -4,7 +4,9 @@ Dashboard
 <div style="display:flexbox">
 <div ng-controller="homecontroller">
 <div ng-repeat ="device in devicedata">
+
 {{device.devicename}}
+<my-switch/>
 </div>
 
 </div>
@@ -12,6 +14,7 @@ Dashboard
 </div>
 
 <%include script%>
-<script  src="app/home/app.homeservice.js" ></script>
-<script  src="app/home/app.homecontroller.js" ></script>
+<script src="app/home/app.homeservice.js" ></script>
+<script src="app/home/app.home.switchdirective.js" ></script>
+<script src="app/home/app.homecontroller.js" ></script>
 <%include footer%>
