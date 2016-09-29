@@ -2,15 +2,16 @@
 
 Dashboard 
 <div style="display:flexbox">
-<div ng-controller="homecontroller">
-<div ng-repeat ="device in devicedata">
+	<div ng-controller="homecontroller">
+	<div style="display:flexbox">
+		<div ng-repeat ="device in devicedata">
 
-{{device.devicename}}
-<my-switch/>
-</div>
+			<!--{{device.devicename}} -->
 
-</div>
-
+			<my-switch/>
+		</div>
+	</div>
+	</div>
 </div>
 
 <%include script%>
