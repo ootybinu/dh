@@ -81,6 +81,8 @@ app.post('/home/getdevices',function(req,res){
 	var user = req.body.username;
 	datastore.fetchDevices(user).then
 	(function(data){
+			// need to get the Device current state
+
 		res.json(data);
 	},function (err){
 		res.json(err);
