@@ -1,5 +1,11 @@
 <div class="col-xs-6 col-md-3">
 <div class="switch">
-{{device.devicename}}
+	{{device.devicename}}
+	<div ng-if="device.state==1">
+		<div class="indicator switchOn"></div>
+	</div>
+	<div ng-if="device.state !=1">
+		<div class="indicator"></div>
+	</div>
 </div>
 </div>

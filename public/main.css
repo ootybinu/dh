@@ -36,6 +36,7 @@ padding: 10px;
 }
 .switch 
 {
+	align-items: center;
 	padding: 10px;
 	margin:10px;
 	border:1px solid lightgray;
@@ -45,4 +46,19 @@ padding: 10px;
 {
 	border:1px dotted lightblue;
 	border-radius: 5px;
+}
+.switched {
+	
+}
+.indicator 
+{
+
+	height:5px;
+	width: 100%;
+	margin:5px 5px 5px 2px;
+	border-radius: 5px;
+}
+.switchOn 
+{
+	background-color: green;
 }

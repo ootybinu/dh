@@ -8,6 +8,8 @@
 		$scope.user='admin';
 		$scope.devicedata=[];
 		activate();
+		$scope.changeState = changeState;
+
 
 		function activate(){
 
@@ -24,6 +26,10 @@
 				}) 
 
 
+		}
+		function changeState()
+		{
+			// switch state here
 		}
 
 

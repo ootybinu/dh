@@ -81,12 +81,34 @@ app.post('/home/getdevices',function(req,res){
 	var user = req.body.username;
 	datastore.fetchDevices(user).then
 	(function(data){
-			// need to get the Device current state
-
+			// Updating the current state of the device
+			data.forEach(function (item){
+				item.state =  device.read(item.port);
+				console.log(item.devicename + ">>" + item.state);
+			});	
 		res.json(data);
 	},function (err){
 		res.json(err);
 	});
+});
+
+app.post('/home/setvalue',function(req,res){
+	var result ={};
+	try {
+		var item = req.body.device;
+		var val = req.body.value;
+		device.write(item.port,val);
+		result.flag="success";
+	}
+	catch(e)
+	{
+		console.log("Exception while writing data " + e);
+		//result.flag="failure";
+		res.writeHead(500,{"Content-Type":"text/plain"});
+		res.end("Error occurec while writing value");
+	}
+	res.json(result);
+
 });
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
@@ -97,11 +119,10 @@ app.get("/dbinit",function(req,res){
 	res.writeHead(200,{"Content-Type":"text/plain"});
 	res.end("<h1> ans is " +result[0].name + "</h1>");
 
-
 	}).catch(function(err){
-console.log("error occured");
-	res.writeHead(200,{"Content-Type":"text/plain"});
-	res.end("error occured");
+		console.log("error occured");
+		res.writeHead(200,{"Content-Type":"text/plain"});
+		res.end("error occured");
 
 	});
 

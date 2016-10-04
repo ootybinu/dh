@@ -2,7 +2,8 @@
 
 'use strict';
 angular.module('app').directive('mySwitch',myswitch);
-function myswitch()
+myswitch.$inject=['homeservice'];
+function myswitch(homeservice)
 {
 return {
 
@@ -10,8 +11,23 @@ return {
 	replace:true,
 	templateUrl:'app/home/templates/myswitch.html',
 	link:function (scope,elem,attrs){
-		elem.bind('mouseover', function(){elem.css('background-color','gray');});
-		elem.bind('mouseout',function(){elem.css('background-color','white');});
+
+		elem.bind('click',function(){
+
+			var newval = !scope.device.state ;	
+			var promise = homeservice.setValue(scope.device, newval);
+			promise.then(
+				function(data){
+					console.log("Data Value set..");
+				}, 
+				function(errData){
+
+				});
+
+			console.log(scope.device.devicename);
+		})
+		// elem.bind('mouseover', function(){elem.css('background-color','gray');});
+		// elem.bind('mouseout',function(){elem.css('background-color','white');});
 		}
 	}
 }
