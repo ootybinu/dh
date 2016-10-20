@@ -2,11 +2,12 @@ var http = require('http');
 var path = require('path');
 var express = require('express');
 var logger = require('morgan');
+var debug = require('debug')('main');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var datastore = require ('./Core/datastore');
-//var device = require('./Core/device');
-var device = require('./Core/deviceDummy');
+var device = require('./Core/my-gpio');
+//var device = require('./Core/deviceDummy');
 //var logcontroller = require('./controllers/logcontroller')
 var app = express();
 var session = require('express-session');
@@ -78,13 +79,21 @@ app.get("/home", function (req,res) {
 }); //home get
 
 app.post('/home/getdevices',function(req,res){
+debug('getting devices..');
 	var user = req.body.username;
 	datastore.fetchDevices(user).then
 	(function(data){
 			// Updating the current state of the device
 			data.forEach(function (item){
-				item.state =  device.read(item.port);
-				console.log(item.devicename + ">>" + item.state);
+				debug('device : %s on port %d',item.devicename,item.port);
+				//device.initChannel(item.port);
+				item.state =  device.read(item.port,function (err,value){
+					if (err)
+						{ console.log("error while reading value for "+ item.port);}
+					item.state =value;
+					console.log(item.devicename + ">>" + item.state);
+				});
+				
 			});	
 		res.json(data);
 	},function (err){
@@ -97,8 +106,11 @@ app.post('/home/setvalue',function(req,res){
 	try {
 		var item = req.body.device;
 		var val = req.body.value;
-		device.write(item.port,val);
+		device.write(item.port,val,function (err,data){
 		result.flag="success";
+		res.json(result);
+
+});
 	}
 	catch(e)
 	{
@@ -107,7 +119,7 @@ app.post('/home/setvalue',function(req,res){
 		res.writeHead(500,{"Content-Type":"text/plain"});
 		res.end("Error occurec while writing value");
 	}
-	res.json(result);
+//	res.json(result);
 
 });
 app.get("/dbinit",function(req,res){

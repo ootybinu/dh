@@ -1,5 +1,4 @@
 var fs           = require('fs');
-var async        = require('async');
 var debug        = require('debug')('my-gpio');
 var PATH = '/sys/class/gpio';
 var PINS = {
@@ -47,15 +46,16 @@ var PINS = {
         '40': 21
 	}; //Pins
 
-function Gpio(){
+function device(){
 
 this.read = function(pin, cb)
 {
+debug('starting read from %d',pin);
 	if (typeof cb !== 'function'){
 		//throw new Error('Callback should be provided for reading');
 		return cb("Missing callback function", null);
 	}
-	var iPin = PINS(pin);
+	var iPin = PINS[pin];
 
 	// isPinReady(iPin,function (err,value)
 	// {
@@ -68,7 +68,7 @@ this.read = function(pin, cb)
 
 	// 	}
 	// });
-
+	debug('pin is %d',iPin);
 	isPinReady(iPin, function(err,value){
 		if (!value){
 			pinReady(iPin, function (err,data) {
@@ -96,7 +96,7 @@ this.read = function(pin, cb)
 						if (err)
 							return cb(err);
 						debug("Read value %d from %d", data, iPin);
-						return cb(null.,data);
+						return cb(null,data);
 					});	
 			});
 		}
@@ -107,7 +107,7 @@ this.read = function(pin, cb)
 
 this.write = function(pin,outValue,cb)
 {
-	var iPin = PINS(pin);
+	var iPin = PINS[pin];
 		isPinReady(iPin, function(err,value){
 		if (!value){
 			pinReady(iPin, function (err,data) {
@@ -130,12 +130,17 @@ this.write = function(pin,outValue,cb)
 			});		
 		}else
 		{
-			setDirection(iPin,"IN",function(err,data){
+			setDirection(iPin,"OUT",function(err,data){
+				if (err)
+				{ debug('error occured while setting direction' + err);
+					cb(err);
+
+					}
 				writePin(iPin,outValue,function(err,data){
 						if (err)
 							return cb(err);
 						debug("Write value %d from %d", data, iPin);
-						return cb(null.,data);
+						return cb(null,data);
 					});	
 			});
 		}
@@ -145,6 +150,7 @@ this.write = function(pin,outValue,cb)
 
 function isPinReady(iPin, cb)
 {
+debug('checking is pinready');
 	fs.exists(PATH+'/gpio'+iPin, function (exists){
 		return cb(null, exists);
 	});
@@ -171,8 +177,9 @@ function destroyPin(iPin, cb)
 function setDirection(iPin,direction,cb)
 {
 	debug('setting direction %s for %d',direction, iPin);
-	fd.writeFile(PATH + 'gpio'+ iPin + '/direction', direction,function(err){
+	fs.writeFile(PATH + '/gpio'+ iPin + '/direction', direction,function(err){
 	return cb(null, err);
+	});
 } //set direction 
 
 function readPin(iPin, cb)
@@ -197,4 +204,4 @@ fs.writeFile(PATH+'/gpio'+iPin+'/value',value,function(err,data){
 }//writePin
 }//
 
-module.exports = new Gpio;
+module.exports = new device;
