@@ -6,8 +6,8 @@ var debug = require('debug')('main');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var datastore = require ('./Core/datastore');
-var device = require('./Core/my-gpio');
-//var device = require('./Core/deviceDummy');
+//var device = require('./Core/my-gpio');
+var device = require('./Core/deviceDummy');
 //var logcontroller = require('./controllers/logcontroller')
 var app = express();
 var session = require('express-session');
@@ -87,7 +87,7 @@ debug('getting devices..');
 			data.forEach(function (item){
 				debug('device : %s on port %d',item.devicename,item.port);
 				//device.initChannel(item.port);
-				item.state =  device.read(item.port,function (err,value){
+				device.read(item.port,function (err,value){
 					if (err)
 						{ console.log("error while reading value for "+ item.port);}
 					item.state =value;

@@ -78,6 +78,34 @@ get(function(err,row){
 	});
 };	
 
+this.updateDevice= function (device)
+{
+	return new Promise(function(resolve,reject){
+		var qry = db.prepare("update devices set devicename=?, imgurl=?, port=? where id=?");
+		qry.bind(device.devicename, device.imgurl, device.port, device.id);
+		qry.run(function (err,result){
+			if (err)
+				reject('error while updating devices');
+			resolve(result);
+
+		});
+
+	});
+};
+
+this.addDevice = function (device)
+{
+	return new Promise(function (resolve,reject){
+		var qry = db.prepare("insert into devices values ((?),?,?,?,?,?)");
+		qry.bind(select max(id)+1 from devices,device.devicename, device.imgurl, device.state,device.username,device.port);
+		qry,run(function (err,result){
+			if (err)
+				reject('error occured while adding data');
+			resolve(result);
+		});
+
+	});
+}
 function get(cb){
 	db.all("select * from devices",function(err,row){
 console.log("gett" + row[0]);
