@@ -77,7 +77,7 @@ debug('starting read from %d',pin);
 						debug('Exception occured while exporting' + err);
 						return cb(err);
 					}
-					setDirection(iPin,"IN",function(err,data){
+					setDirection(iPin,"OUT",function(err,data){
 
 						readPin(iPin,function(err,data){
 								if (err)
@@ -91,7 +91,7 @@ debug('starting read from %d',pin);
 			});		
 		}else
 		{
-			setDirection(iPin,"IN",function(err,data){
+			setDirection(iPin,"OUT",function(err,data){
 				readPin(iPin,function(err,data){
 						if (err)
 							return cb(err);
@@ -117,6 +117,11 @@ this.write = function(pin,outValue,cb)
 						return cb(err);
 					}
 					setDirection(iPin,"OUT",function(err,data){
+						if (err)
+						{ debug('error occured while setting direction' + err);
+							cb(err);
+		
+							}
 
 						writePin(iPin,outValue, function(err){
 								if (err)
@@ -130,19 +135,22 @@ this.write = function(pin,outValue,cb)
 			});		
 		}else
 		{
-			setDirection(iPin,"OUT",function(err,data){
+			/*setDirection(iPin,"OUT",function(err,data){
 				if (err)
 				{ debug('error occured while setting direction' + err);
 					cb(err);
 
-					}
+					} */
+//				debug('value from direction is ' +data);
 				writePin(iPin,outValue,function(err,data){
-						if (err)
+						if (err){
+							debug('error occured while wrtiting data' + err);
 							return cb(err);
-						debug("Write value %d from %d", data, iPin);
+							}
+						debug("Write value %s from %d", data, iPin);
 						return cb(null,data);
 					});	
-			});
+			//});
 		}
 
 	});
@@ -196,9 +204,12 @@ function readPin(iPin, cb)
 function writePin(iPin,value,cb)
 {
 debug('writing %d to %d',value, iPin);
-fs.writeFile(PATH+'/gpio'+iPin+'/value',value,function(err,data){
-		if (err)
-		return cb(err);
+mode = value!=0?'high':'low';
+debug('going to write %s',mode);
+fs.writeFile(PATH+'/gpio'+iPin+'/direction',mode,function(err,data){
+		if (err){
+			debug('error - writing value' + err);
+		return cb(err);}
 	return cb(null,data);
 });
 }//writePin
