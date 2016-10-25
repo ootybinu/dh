@@ -18,6 +18,7 @@ return {
 			var promise = homeservice.setValue(scope.device, newval);
 			promise.then(
 				function(data){
+					scope.device.state = newval;
 					console.log("Data Value set..");
 				}, 
 				function(errData){
