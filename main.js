@@ -84,18 +84,27 @@ debug('getting devices..');
 	datastore.fetchDevices(user).then
 	(function(data){
 			// Updating the current state of the device
+			var selected = [];
 			data.forEach(function (item){
 				debug('device : %s on port %d',item.devicename,item.port);
 				//device.initChannel(item.port);
 				device.read(item.port,function (err,value){
 					if (err)
-						{ console.log("error while reading value for "+ item.port);}
+						{
+							console.log("error while reading value for "+ item.port);
+							selected.push(item);
+							}
 					item.state =value;
 					console.log(item.devicename + ">>" + item.state);
+					selected.push(item);
+					if (selected.length >= data.length)
+					{
+						res.json(data);
+					}
 				});
 				
 			});	
-		res.json(data);
+		//res.json(data);
 	},function (err){
 		res.json(err);
 	});
@@ -106,6 +115,7 @@ app.post('/home/setvalue',function(req,res){
 	try {
 		var item = req.body.device;
 		var val = req.body.value;
+debug('item :%s & value: %s',item.port,val);
 		device.write(item.port,val,function (err,data){
 		result.flag="success";
 		res.json(result);

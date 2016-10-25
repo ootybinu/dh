@@ -1,18 +1,19 @@
 function deviceDummy()
 {
 
-this.write = function(pin,value){
+this.write = function(pin,value,cb){
 	console.log("dummy pin :" + value + "written at device " + pin);
+	return cb(null,true);
 // gpio.write(pin,value, function (err)
 // 	{if (err) throw err;
 // 		console.log( value + "written to " + pin);
 // 	});
 
 }; 
-this.read = function(pin){
-var value = 1;
+this.read = function(pin,cb){
+var value = pin % 2;
 	console.log("the dummy value given back is " + value + ' at device ' + pin);
-	return value;
+	return  cb(null,value);
 // gpio.read(pin,function(err,value){
 // 	if (err) throw err;
 // 	console.write(value " read from pin "+ pin);

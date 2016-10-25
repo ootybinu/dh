@@ -23,12 +23,13 @@
 					},
 				 function (err) {
 				 	console.log('error occured while getting devices');
-				}) 
+				}) ;
 
 
 		}
 		function changeState()
 		{
+			activate();
 			// switch state here
 		}
 
