@@ -13,15 +13,15 @@ return {
 	link:function (scope,elem,attrs){
 
 		elem.bind('click',function(){
-
-			var newval = !scope.device.state ;	
+//			alert(scope.device.devicename +scope.device.state);
+			var newval = scope.device.state == 0 ? 1:0;	
 			var promise = homeservice.setValue(scope.device, newval);
 			promise.then(
 				function(data){
 					console.log("Data Value set..");
 				}, 
 				function(errData){
-
+					console.log("set value error" + errData);
 				});
 
 			console.log(scope.device.devicename);

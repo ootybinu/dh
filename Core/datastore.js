@@ -96,16 +96,54 @@ this.updateDevice= function (device)
 this.addDevice = function (device)
 {
 	return new Promise(function (resolve,reject){
-		var qry = db.prepare("insert into devices values ((?),?,?,?,?,?)");
-		qry.bind(select max(id)+1 from devices,device.devicename, device.imgurl, device.state,device.username,device.port);
-		qry,run(function (err,result){
-			if (err)
-				reject('error occured while adding data');
-			resolve(result);
-		});
+		try{
+		var qry = db.prepare("insert into devices values (?,?,?,?,?,?)");
+		qry.run('select max(id)+1 from devices',device.devicename, device.imgurl, device.state,device.username,device.port);
+		qry.finalize();	
+		resolve("success");
+	} catch (ex)
+	{
+			reject("error while adding device" + device);
+	}
+
+		//qry.bind(select max(id)+1 from devices,device.devicename, device.imgurl, device.state,device.username,device.port);
+		// qry.run(function (err,result){
+		// 	if (err)
+		// 		reject('error occured while adding data');
+		// 	resolve(result);
+		// });
 
 	});
-}
+};
+
+this.writePin = function (port,value)
+{
+	return new Promise(function (resolve, reject){
+
+		var qry = db.prepare("update devices set state = ? where port = ?");
+		qry.bind(value,port);
+		qry.run(function(err,result){
+			if (err)
+				reject(err);
+			resolve(result);
+		});
+	});
+};
+this.readPin = function (pin){
+	return new Promise(function (resolve,reject){
+	var qry='select state from devices where port =' + pin;
+	db.all(qry,function(err,row){
+		if(err){
+			console.log('error while reading pin ' + err); 
+			reject(err);
+		}
+		resolve(row);
+
+		});
+	});
+
+};
+
 function get(cb){
 	db.all("select * from devices",function(err,row){
 console.log("gett" + row[0]);
