@@ -63,6 +63,8 @@ app.post("/login", function (req,res) {
 				result.flag='failure';
 				res.json(result);
 			}else{
+				result.user = user;
+				result.key = 'test';
 				req.session.user = 'admin';
 				result.flag='success';
 				result.data = data;
@@ -120,7 +122,7 @@ debug('item :%s & value: %s',item.port,val);
 		result.flag="success";
 		res.json(result);
 
-});
+	});
 	}
 	catch(e)
 	{
@@ -132,6 +134,11 @@ debug('item :%s & value: %s',item.port,val);
 //	res.json(result);
 
 });
+
+app.get('/configure/index',function (req,res){
+	res.render("configindex")
+}); //config-list
+
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();

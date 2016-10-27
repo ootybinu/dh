@@ -1,9 +1,9 @@
 (function () {
 'use strict';
 angular.module('app').service('loginservice',loginService);
-loginService.$inject=['$http'];
+loginService.$inject=['$http','commonService'];
 
-function loginService($http){
+function loginService($http,commonService){
 
 this.login = function ( username,pwd){
 	var url = '/login';

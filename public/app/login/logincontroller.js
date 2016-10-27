@@ -2,8 +2,8 @@
 'use strict';
 
 angular.module('app').controller('logincontroller',loginController);
-loginController.$inject= ['$scope','loginservice'];
-function loginController($scope,loginservice){
+loginController.$inject= ['$scope','commonService','loginservice'];
+function loginController($scope,commonService,loginservice){
 	$scope.login = logIn;
 	$scope.userName='';
 	$scope.password='';
@@ -19,6 +19,9 @@ function loginController($scope,loginservice){
 		(function (data) {
 			if (data.flag=='success')
 			{
+			// 
+				commonService.writeStorage("user", data.user);
+				commonService.writeStorage("key",data.key);
 				window.location = "/";
 			// loginservice.success().success(function(data1){
 			// 		console.log('loading landing page');

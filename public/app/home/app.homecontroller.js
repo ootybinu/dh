@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular.module('app').controller('homecontroller',homeController);
-	homeController.$inject=['$scope','homeservice'];
-	function homeController($scope,homeservice)
+	homeController.$inject=['$scope','commonService','homeservice'];
+	function homeController($scope,commonService, homeservice)
 	{
-		$scope.user='admin';
+		$scope.user=commonService.readStorage('user');
 		$scope.devicedata=[];
 		activate();
 		$scope.changeState = changeState;
