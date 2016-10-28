@@ -5,8 +5,8 @@ Configservice.$inject = ['$http','commonService'];
 function Configservice ($http,commonService)
 {
 
-	this.getdevices = function (name){
-		var url ='/home/getdevices';
+	this.getDevices = function (name){
+		var url ='/config/getdevices';
 		return $http.post(url,{username:name});
 	}
 	// this.setValue = function(device, val)
@@ -15,6 +15,18 @@ function Configservice ($http,commonService)
 	// 	return $http.post(url, {device:device,value:val});
 
 	// }
+	this.deleteDevice = function(device)
+	{
+		var url='/config/deletedevice';
+		return $http.post(url,{device:device});
+	};
+	
+	this.updateDevice = function(device)
+	{
+		var url='/config/updatedevice';
+		return $http.post(url,{device:device});
+	};
+
 }
 
 })();

@@ -139,6 +139,34 @@ app.get('/configure/index',function (req,res){
 	res.render("configindex")
 }); //config-list
 
+app.post('/config/getdevices',function(req,res){
+	debug('starting configure get devices');
+	var user = req.body.username;
+	datastore.fetchDevices(user).then(
+		function(data){
+			res.json(data);	
+		},function(errdata){
+			debug('error occured ' + errdata);
+			res.json(null);
+		}
+		); 
+});
+
+app.post('/config/updatedevice',function(req,res){
+	var device = req.body.device;
+	datastore.updateDevice(device).then(
+		function(data){
+			debug('Update device success!!');
+			res.json('{msg:success}');
+		},
+		function(errdata){
+			res.json('{msg:failure}');
+
+		}
+		);
+
+}); //config-update device
+
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();

@@ -81,8 +81,9 @@ get(function(err,row){
 this.updateDevice= function (device)
 {
 	return new Promise(function(resolve,reject){
-		var qry = db.prepare("update devices set devicename=?, imgurl=?, port=? where id=?");
-		qry.bind(device.devicename, device.imgurl, device.port, device.id);
+		//var qry = db.prepare("update devices set devicename=?, imgurl=?, port=? where id=?");
+		var qry = db.prepare("update devices set devicename=?, port=? where id=?");
+		qry.bind(device.devicename, device.port, device.id);
 		qry.run(function (err,result){
 			if (err)
 				reject('error while updating devices');

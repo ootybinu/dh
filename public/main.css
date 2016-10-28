@@ -51,6 +51,9 @@ box-shadow: 1px 2px 3px 3px gray ;
 	padding: 0px 5px 0px 5px;
 /*	border: 1px solid gray;*/
 }
+.homeRef{
+	text-decoration: none;
+}
 .error 
 {
 	color:red;
@@ -89,4 +92,14 @@ box-shadow: 1px 2px 3px 3px gray ;
 }
 .switchOn{
 box-shadow: 0px 0px 1px 1px gray;
+}
+
+.row {
+align-items: left;
+}
+.evenrow{
+background-color: palegoldenrod;
+}
+.oddrow{
+	background-color: lightsteelblue;
 }
