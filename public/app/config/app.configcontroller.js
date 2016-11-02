@@ -16,6 +16,7 @@ function configcont($scope,commonService, configService){
 		configService.getDevices($scope.user).then (
 			function(data){
 				$scope.devices = data.data;
+
 			}, 
 			function(errdata){
 				console.log('Error occured' + errdata);
@@ -27,10 +28,12 @@ function configcont($scope,commonService, configService){
 		configService.updateDevice(device).then(
 			function(data){
 				console.log('Data updated ..');
-				activate();		
+				commonService.showSuccess("Configuration updated!","Success");
+				//getdata();
 			},
 			function(errdata){
-				console.log('data not updated.');
+				commonService.showError(errdata,"Error occured");
+				console.log('data not updated.' + errdata);
 
 			});
 		console.log (device.devicename + "will be updated with "+  device.port);

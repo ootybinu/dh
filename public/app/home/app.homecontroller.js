@@ -20,10 +20,7 @@
 				homeservice.getdevices($scope.user).then(
 					function (data){
 						$scope.devicedata= data.data;
-			           // toastr.options.positionClass = 'toast-bottom-right';
-		        	   //  toastr.options.timeOut = 5000;
-        		    // 	toastr.success("success", "good");
-						//toastr.info('Data Updated!!',"update");
+
 					},
 				 function (err) {
 				 	console.log('error occured while getting devices');
