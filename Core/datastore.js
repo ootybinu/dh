@@ -93,15 +93,48 @@ this.updateDevice= function (device)
 
 	});
 };
+this.deleteDevice= function (device)
+{
+	return new Promise(function(resolve,reject){
+		//var qry = db.prepare("update devices set devicename=?, imgurl=?, port=? where id=?");
+		var qry = db.prepare("delete from devices where id =?");
+		qry.bind(device.id);
+		qry.run(function (err,result){
+			if (err)
+				reject('error while deleting devices');
+			resolve(result);
+
+		});
+
+	});
+};
 
 this.addDevice = function (device)
 {
 	return new Promise(function (resolve,reject){
 		try{
-		var qry = db.prepare("insert into devices values (?,?,?,?,?,?)");
-		qry.run('select max(id)+1 from devices',device.devicename, device.imgurl, device.state,device.username,device.port);
-		qry.finalize();	
-		resolve("success");
+		// var qry = db.prepare("insert into devices values (?,?,?,?,?,?)");
+		// qry.run('select max(id)+1 from devices',device.devicename, device.imgurl, device.state,device.username,device.port);
+		var idqry = "select max(id)+1 as id from devices";
+		db.all(idqry, (function (err,result)
+		{
+			if (err)
+			{
+				reject("error occured " + err);
+			}
+			var id = result[0].id;
+			var qry = db.prepare("insert into devices(id,devicename,username, port) values (?,?,?,?)");
+			qry.bind(id,device.devicename,device.username, device.port);
+			qry.run( function(er, resul){
+				if(er)
+					reject('error while saving'+er);
+					resolve(resul);
+			});
+			//qry.finalize();	
+	//		resolve("success");
+
+
+		} ));
 	} catch (ex)
 	{
 			reject("error while adding device" + device);

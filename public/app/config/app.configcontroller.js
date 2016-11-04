@@ -43,9 +43,39 @@ function configcont($scope,commonService, configService){
 	$scope.delete = function(device)
 	{
 		if (confirm("Do you want to delete")){
+			configService.deleteDevice(device).then(
+				function (data) {
+					commonService.showSuccess("Device deleted");
+					getdata();
+				}, 
+				function (errdata) {
+					commonService.showError("Error Occured while deleting device","Exception");
+					console.log(errdata);
+
+				}
+
+				);
 			console.log (device.deviceName + "will be deleted");
 		}
 	};
+
+	$scope.addNew = function()
+	{
+		var device = {devicename:$scope.devname,username:$scope.user, port:$scope.devport};
+		configService.addDevice(device).then(
+				function (data) {
+					commonService.showSuccess("Device Added");
+					getdata();
+				}, 
+				function (errdata) {
+					commonService.showError("Error Occured while adding device","Exception");
+					console.log(errdata);
+
+				}
+
+				);
+
+	}
 
 }
 

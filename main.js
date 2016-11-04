@@ -167,6 +167,36 @@ app.post('/config/updatedevice',function(req,res){
 
 }); //config-update device
 
+app.post('/config/deletedevice',function(req,res){
+	var device = req.body.device;
+	datastore.deleteDevice(device).then(
+		function(data){
+			debug('Delete device success!!');
+			res.json('{msg:success}');
+		},
+		function(errdata){
+			res.json('{msg:failure}');
+
+		}
+		);
+
+}); //config-deletedevice
+
+app.post('/config/adddevice',function(req,res){
+	var device = req.body.device;
+	datastore.addDevice(device).then(
+		function(data){
+			debug('Device added !');
+			res.json('{msg:success}');
+		},
+		function(errdata){
+			res.json('{msg:failure}');
+
+		}
+		);
+
+}); //config-deletedevice
+
 app.get("/dbinit",function(req,res){
 	//	datastore.create();
 	//datastore.init();

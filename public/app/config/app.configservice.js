@@ -26,7 +26,11 @@ function Configservice ($http,commonService)
 		var url='/config/updatedevice';
 		return $http.post(url,{device:device});
 	};
-
+	this.addDevice = function(device)
+	{
+		var url='/config/adddevice';
+		return $http.post(url,{device:device});
+	};
 }
 
 })();
