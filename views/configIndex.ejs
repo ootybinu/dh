@@ -1,16 +1,52 @@
 <%include header%>
-
 Config
-<div style="display:flexbox">
-	<div ng-controller="configcontroller">
-	<div style="display:flex">
-		<div>
+<script>
+function save()
+{
+	
 
-		<div class="rowHeader hidden-xs col-sm-12">
-			<div class="col-sm-6">Device Name</div>
-			<div class="col-sm-6">Port</div>
+}
+</script>
+ <div style="display:flexbox"> 
+
+	<div ng-controller="configcontroller">
+	<div>
+		<div>
+		<div>
+		<a data-target ="#myPopup" class="btn btn-default" data-toggle="modal">Add New</a>
 		</div>
-		
+		<!-- Popup-->
+		<div id="myPopup" class="modal fade" role="dialog" data-keyboard="true" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+				
+	       			<div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                	<h4 class="modal-title">Add a new device</h4>
+	            	</div>
+	            	
+	            	 <div class="modal-body">
+	                    <input type = "text" id="dname" ng-model="devname"/>
+	                    <input type = "text" id="dport" ng-model="devport"/>
+
+
+	                    testing...
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNew()">Save changes</button>
+	                </div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+		<div class="colsm-12 col-md-12"> <!--Grid-->
+			<div class="rowHeader hidden-xs col-sm-12">
+				<div class="col-sm-6">Device Name</div>
+				<div class="col-sm-6">Port</div>
+			</div>
 			<div ng-repeat="row in devices" class="col-sm-12">
 				<div class="row" ng-class-odd="'oddrow'" ng-class-even="'evenrow'">
 					<div class="col-xs-12 col-sm-6"><input type="text"  ng-model="row.devicename" /></div>
@@ -25,8 +61,8 @@ Config
 	</div>
 	</div>
 </div>
-
 <%include script%>
+
 <script src="/app/config/app.configservice.js" ></script>
 <script src="/app/config/app.configcontroller.js" ></script>
 <%include footer%>
