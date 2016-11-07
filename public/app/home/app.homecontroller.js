@@ -7,6 +7,7 @@
 	{
 		$scope.user=commonService.readStorage('user');
 		$scope.devicedata=[];
+		commonService.checkLogin();
 		activate();
 		$scope.changeState = changeState;
 

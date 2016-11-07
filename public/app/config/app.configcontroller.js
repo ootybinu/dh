@@ -5,6 +5,7 @@ configcont.$inject = ['$scope','commonService','configService']
 function configcont($scope,commonService, configService){
 	$scope.user=commonService.readStorage('user');
 	$scope.devices = {};
+	commonService.checkLogin();
 	activate();
 
 	function activate(){

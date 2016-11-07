@@ -40,6 +40,19 @@
 				toastr.warning(msg,title);
 			};
 
+
+
+			this.checkLogin = function()
+			{
+				var user= this.readStorage("user");
+				if(user==null || user==undefined)
+				{
+					$window.location ="/login";
+					return false;
+				}
+				return true;
+			};
+
 			function configureToastr()
 			{
 				toastr.options.positionClass = 'toast-bottom-right';
