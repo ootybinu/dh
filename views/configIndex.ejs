@@ -10,7 +10,8 @@
 		<div id="myPopup" class="modal fade" role="dialog" data-keyboard="true" >
 			<div class="modal-dialog">
 				<div class="modal-content">
-				
+					
+					<form name="frmDevice" ng-submit="addNew(frmDevice.$valid)" novalidate>
 	       			<div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	                	<h4 class="modal-title">Add a new device</h4>
@@ -18,19 +19,23 @@
 	            	
 	            	 <div class="modal-body">
 
-	            	 <div class="trow">
-	            	 	<span class="lbladd">Device Name</span>
-						<input type = "text" id="dname" ng-model="devname"/>
-	            	 </div>
-	            	 <div class="trow">
-	            	 <span class="lbladd">Port Number </span>
-      					<input type = "number" id="dport" max="40" ng-model="devport"/>
-	            	 </div>
+
+		            	 <div class="trow">
+		            	 	<span class="lbladd">Device Name</span>
+							<input type = "text" id="dname" ng-model="devname" ng-required="true" name="dname"/>
+							<p ng-show="frmDevice.dname.$invalid && !frmDevice.dname.$pristine" class="error">Device name required</p>
+		            	 <div class="trow">
+		            	 <span class="lbladd">Port Number </span>
+	      					<input type = "number" id="dport" max="40" ng-maxlength="40" ng-model="devport" ng-required="true" name="dport"/>
+	      					<p ng-show="frmDevice.dport.$invalid && !frmDevice.dport.$pristine" class="error">Device Port required</p>
+	      					<p ng-show="frmDevice.dport.$maxlength && !frmDevice.dport.$pristine" class="error">Enter a number less than 40</p>
+		            	 </div>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNew()">Save changes</button>
+	                    <button type="submit" class="btn btn-primary" ng-disabled="frmDevice.$invalid" >Save changes</button>
 	                </div>
+				</form>
 
 				</div>
 			</div>
@@ -44,11 +49,20 @@
 			</div>
 			<div ng-repeat="row in devices" class="col-sm-12">
 				<div class="row" ng-class-odd="'oddrow'" ng-class-even="'evenrow'">
-					<div class="col-xs-12 col-sm-6"><input type="text"  ng-model="row.devicename" /></div>
+					<div class="col-xs-12 col-sm-6"><input type="text"  ng-model="row.devicename" required /></div>
 					<div class="col-xs-12 col-sm-6" style="display:flex" >
 						<div style="width:50%"><input type="number" ng-model="row.port" /></div>
-						<div style="width:25%"><input type="button" class="btn btn-default" value="update" ng-click="update(row);"/></div>
-						<div style="width:25%"><input type="button" class="btn btn-default" value="delete" ng-click="delete(row);"/></div>
+
+						<div style="width:25%">
+							<button type="button" class="btn btn-default" ng-click="update(row);">
+ 								<span class="glyphicon glyphicon-ok"></span>Update
+ 							</button>
+						</div>
+						<div style="width:25%"> 
+							<button type="button" class="btn btn-default" ng-click="delete(row);">
+ 								<span class="glyphicon glyphicon-remove"></span>Delete
+ 							</button>
+ 						</div>
 					</div>	
 				</div>
 			</div>

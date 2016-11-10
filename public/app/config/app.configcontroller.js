@@ -66,6 +66,7 @@ function configcont($scope,commonService, configService){
 		configService.addDevice(device).then(
 				function (data) {
 					commonService.showSuccess("Device Added");
+					$('#myPopup').modal('hide');
 					getdata();
 				}, 
 				function (errdata) {
