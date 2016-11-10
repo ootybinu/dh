@@ -1,11 +1,12 @@
 (function(){
 'use strict';
 angular.module('app').controller('configcontroller',configcont);
-configcont.$inject = ['$scope','commonService','configService']
+configcont.$inject = ['$scope','commonService','configService'];
 function configcont($scope,commonService, configService){
 	$scope.user=commonService.readStorage('user');
-	$scope.devices = {};
+	$scope.devices = [];
 	commonService.checkLogin();
+	var devices ;
 	activate();
 
 	function activate(){
@@ -17,6 +18,7 @@ function configcont($scope,commonService, configService){
 		configService.getDevices($scope.user).then (
 			function(data){
 				$scope.devices = data.data;
+				devices = $scope.devices;
 
 			}, 
 			function(errdata){
@@ -72,11 +74,7 @@ function configcont($scope,commonService, configService){
 				function (errdata) {
 					commonService.showError("Error Occured while adding device","Exception");
 					console.log(errdata);
-
-				}
-
-				);
-
+				});
 	}
 
 }
