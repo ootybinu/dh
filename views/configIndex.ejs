@@ -49,18 +49,25 @@
 			</div>
 			<div ng-repeat="row in devices" class="col-sm-12">
 				<div class="row" ng-class-odd="'oddrow'" ng-class-even="'evenrow'">
-					<div class="col-xs-12 col-sm-6"><input type="text"  ng-model="row.devicename" required /></div>
+					<div class="col-xs-12 col-sm-6">
+						<span class="hidden-sm hidden-md hidden-lg">Device Name</span>
+						<input type="text"  ng-model="row.devicename" required />
+					</div>
 					<div class="col-xs-12 col-sm-6" style="display:flex" >
-						<div style="width:50%"><input type="number" ng-model="row.port" /></div>
+
+						<div style="width:50%">
+						<span class="hidden-sm hidden-md hidden-lg">Port</span>
+							<input type="number" ng-model="row.port" />
+						</div>
 
 						<div style="width:25%">
 							<button type="button" class="btn btn-default" ng-click="update(row);">
- 								<span class="glyphicon glyphicon-ok"></span>Update
+ 								<span class="glyphicon glyphicon-ok"></span><span class="hidden-xs"> &nbsp; Update</span>
  							</button>
 						</div>
 						<div style="width:25%"> 
 							<button type="button" class="btn btn-default" ng-click="delete(row);">
- 								<span class="glyphicon glyphicon-remove"></span>Delete
+ 								<span class="glyphicon glyphicon-remove"></span><span class="hidden-xs">&nbsp;Delete</span>
  							</button>
  						</div>
 					</div>	

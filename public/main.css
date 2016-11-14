@@ -1,9 +1,18 @@
+body{
+	height: 100%;
+	margin:0px;
+}
 .main{
 
 }
 .layout {
-	height:100vh;
+/*	display: flex;
+    display: -webkit-flex;
+*/	height:100vh;
+	width: 100vw;
 	border:1px solid darkgray;
+/*	align-items: center;
+	justify-content: center;*/
 	border-radius: 5px;
 }
 .main a {
@@ -43,6 +52,7 @@ border-bottom-right-radius: 10px;
 border:1px solid gray;
 padding: 10px;
 box-shadow: 1px 2px 3px 3px gray ;
+width: 100%;
 }
 .titlebar
 {

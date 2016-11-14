@@ -25,11 +25,19 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json({extended:true}));
 app.use(express.static('public'));
 
+//middleware authentication 
+app.use (function (req,res,next){
+
+next();
+});
+
 //middleware logging
 app.use(function (req,resp,next){
 	console.log("method" + req.method);
 	next();
 	});
+
+
 //Initialization
 
 //routes
