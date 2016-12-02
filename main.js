@@ -144,7 +144,7 @@ debug('item :%s & value: %s',item.port,val);
 });
 
 app.get('/configure/index',function (req,res){
-	res.render("configindex")
+	res.render("configIndex")
 }); //config-list
 
 app.post('/config/getdevices',function(req,res){
