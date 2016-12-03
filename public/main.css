@@ -30,11 +30,12 @@ body{
 }
 .loginbox 
 {
-width:80%;
+/*width:80%;*/
 border: 1px solid gray;
 border-radius: 5px;
 margin:10px;
 padding: 50px;
+text-align: center;
 }
 .loginbox label 
 {
@@ -51,7 +52,7 @@ border-bottom-left-radius: 10px;
 border-bottom-right-radius: 10px;
 border:1px solid gray;
 padding: 10px;
-box-shadow: 1px 2px 3px 3px gray ;
+box-shadow: 0px 6px 12px 0px gray ;
 width: 100%;
 }
 .titlebar
@@ -61,7 +62,25 @@ width: 100%;
 	padding: 0px 5px 0px 5px;
 /*	border: 1px solid gray;*/
 }
-.homeRef{
+.titlebar a
+{
+	text-decoration: none;
+	padding: 0px 5px 0px 5px;
+}
+.titlebar > a:hover {
+	border-radius: 10px;
+	text-shadow: -2px 2px 2px gray;
+/*	box-shadow: 0px 6px 12px gray;
+*/}
+.titlebar > .dropdown-menu
+{min-width: 100px;}
+
+/*.username {
+	border-radius: 10px;
+	background-color: lightgray;
+	padding: 5px 10px;
+}*/
+.homeRef a{
 	text-decoration: none;
 }
 .error 
@@ -119,6 +138,7 @@ box-shadow: 0px 0px 1px 1px gray;
 align-items: left;
 text-align: left;
 vertical-align: middle;
+margin: 0px 0px 0px 0px;
 /*border-radius: 5px;*/
 }
 .rowHeader

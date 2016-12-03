@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="main.css"/>
-</head>
-<body>
+<%include header1%>
 <div style="text-align:center;align:center">
 	<div ng-app='app'>
 		<div ng-controller='logincontroller'>
-			<div class='col-xs-12 col-ls-12'>
+			<div class='col-xs-12 col-lg-12'>
 				<div class='loginbox'>
 						<div>
 							<label> name: </label>
@@ -18,9 +12,14 @@
 							<label>Password:</label>
 							<input type='password' name ='pwd' ng-model='password'/>
 						</div>
-						<div style="margin-top:20px;text-align:right">
+
+						<div style="margin-top:20px;text-align:right;width:100%">
+						<span style="width:50%"></span>
+						<span>
 							<input type='submit' class='btn btn-default' name='loginbtn' value ='Logon' ng-click='login()' 
 							ng-disabled='UserName == "" || password ==""'/>
+						</span>
+							
 						</div>
 						<div class="error">{{error}}</div>
 					</div>
@@ -31,5 +30,4 @@
 <script  src="app/login/loginservice.js" ></script>
 <script  src="app/login/logincontroller.js" ></script>
 </div>
-</body>
-</html>
+<%include footer%>

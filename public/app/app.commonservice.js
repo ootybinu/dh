@@ -17,6 +17,10 @@
 				}
 
 			};
+			this.removeStorageItem= function(key){
+				if ($window.sessionStorage)
+					$window.sessionStorage.removeItem(key);
+			};
 
 			this.showInfo = function (msg,title)
 			{

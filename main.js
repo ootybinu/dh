@@ -88,6 +88,17 @@ app.get("/home", function (req,res) {
 	res.render("home");
 }); //home get
 
+app.get("/information",function	(req,res){
+	res.render("information");
+
+});
+
+app.get("/logout",function	(req,res){
+	res.render("logout");
+
+});
+
+
 app.post('/home/getdevices',function(req,res){
 debug('getting devices..');
 	var user = req.body.username;
