@@ -82,10 +82,23 @@ width: 100%;
 }*/
 .homeRef a{
 	text-decoration: none;
+
 }
+.homeRef img:hover {
+	/*transition: transform 1.25s ease;*/
+	transform:scale(1.25);
+}
+.homeRef {}
 .error 
 {
 	color:red;
+}
+.information{
+	background-image: url("/images/DigiHome2.gif");
+	background-repeat: no-repeat;
+	
+	height: 80vh;
+
 }
 .switch 
 {
